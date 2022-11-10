@@ -10,10 +10,10 @@ trend = 0 ## scores higher than 0 indicate uptrend
 oversoldoverbought = 0 ## scores higher than 0 indicate oversold(might be good time to buy)
 buysell = 0 ## scores higher than 0 indicate buy
 
-exchange = ccxt.ftx() ## list of supported exchanges can be found @https://github.com/ccxt/ccxt
+exchange = ccxt.binance() ## list of supported exchanges can be found @https://github.com/ccxt/ccxt
 timeframe = "4h" ## 1m, 5m, 1h, 4h, 1d, 1M, 1y
-eth = "ETH/USD"
-btc = "BTC/USD" 
+eth = "ETH/USDT"
+btc = "BTC/USDT" 
 
 data = exchange.fetch_ohlcv(eth, timeframe)
 
