@@ -10,7 +10,7 @@ trend = 0 ## scores higher than 0 indicate uptrend
 oversoldoverbought = 0 ## scores higher than 0 indicate oversold(might be good time to buy)
 buysell = 0 ## scores higher than 0 indicate buy
 
-exchange = ccxt.binance() ## list of supported exchanges can be found @https://github.com/ccxt/ccxt
+exchange = ccxt.binanceus() ## list of supported exchanges can be found @https://github.com/ccxt/ccxt
 timeframe = "4h" ## 1m, 5m, 1h, 4h, 1d, 1M, 1y
 eth = "ETH/USDT"
 btc = "BTC/USDT" 
@@ -161,10 +161,15 @@ def adx_signal():
         if adxr[-1] > adx[-1]:
             buysell -= 1
 
-##def divergence(pc,indicator):
-    ##positive divergence price decreasing, indicator increasing
-   
-    ##negative divergence price increasing, indicator decreasing
+# Function to check for divergence
+def check_divergence(price_data, indicator_data):
+    for i in range(len(price_data) - 2):
+        # Check if there is a bullish divergence
+        if price_data[i] < price_data[i+1] and indicator_data[i] > indicator_data[i+1]:
+            print("Bullish divergence detected at index", i)
+        # Check if there is a bearish divergence
+        elif price_data[i] > price_data[i+1] and indicator_data[i] < indicator_data[i+1]:
+            print("Bearish divergence detected at index", i)
 
 willr_signal()
 rsi_signal()
@@ -178,6 +183,7 @@ apo_signal()
 aroonosc_signal()
 ppo_signal()
 roc_signal()
+diverg = check_divergence(pc, rsi)
 
 print(eth + " " + str(pc[-1]) + " " + timeframe)
 
@@ -218,4 +224,4 @@ elif oversoldoverbought < 0:
 else:
     bsob_signal = "no signal"
 
-print(buy_sell_signal + "\n" + trend_signal + "\n" + bsob_signal)
+print(buy_sell_signal + "\n" + trend_signal + "\n" + bsob_signal +"\n" + str(diverg))
